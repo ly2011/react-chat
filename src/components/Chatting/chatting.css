@@ -15,3 +15,18 @@
   padding-left: 10px;
   padding-right: 15px;
 }
+
+.chatting-back {
+  width: 32px;
+  height: 32px;
+}
+.icon-back {
+  background: url('../../common/icons/icon-ai.svg') no-repeat;
+  background-size: contain;
+}
+.icon-back2 {
+  background: url('../../common/icons/icon-ai2.svg') no-repeat;
+  background-size: contain;
+}
+.chatting-tile {
+}
