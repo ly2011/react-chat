@@ -2,10 +2,11 @@
  * 异步加载组件
  */
 import React from 'react';
+
 const asyncComponent = loadComponent =>
   class AsyncComponent extends React.Component {
     state = {
-      Component: null
+      Component: null,
     };
     componentWillMount() {
       if (this.hasLoadedComponent()) {
@@ -13,10 +14,10 @@ const asyncComponent = loadComponent =>
       }
       loadComponent()
         .then(module => module.default)
-        .then(Component => {
+        .then((Component) => {
           this.setState({ Component });
         })
-        .catch(err => {
+        .catch((err) => {
           console.error("Can't load component in <AsyncComponent/>");
           throw err;
         });
