@@ -3,11 +3,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
 }
 .title {
-    font-size: 20px;
-    height: 44px;
-    line-height: 44px;
-    color: #333;
-  }
+  font-size: 20px;
+  height: 44px;
+  line-height: 44px;
+  color: #333;
+}

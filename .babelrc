@@ -1,14 +1,17 @@
 {
   "plugins": [
-    ["react-css-modules", {
-      "generateScopedName": "[name]-[local]-[hash:base64:5]",
-      "webpackHotModuleReloading": false,
-      "filetypes": {
-        ".scss": {
-          "syntax": "postcss-scss",
-          "plugins": ["postcss-nested"]
+    [
+      "react-css-modules",
+      {
+        "generateScopedName": "[path]___[name]__[local]___[hash:base64:5]",
+        "webpackHotModuleReloading": false,
+        "filetypes": {
+          ".scss": {
+            "syntax": "postcss-scss",
+            "plugins": ["postcss-nested"]
+          }
         }
       }
-    }]
+    ]
   ]
 }
