@@ -32,9 +32,7 @@ class Chatting extends Component {
           <div>
             {/* self */}
             <div
-              className={`${styles['chatting-item']} ${styles.self} ${
-                styles.clearfix
-              }`}
+              className={`${styles['chatting-item']} ${styles.self} clearfix`}
             >
               <div className={styles['msg-date']}>2017-12-12</div>
               <div className={styles['msg-form']}>
@@ -47,9 +45,7 @@ class Chatting extends Component {
 
             {/* other */}
             <div
-              className={`${styles['chatting-item']} ${styles.other} ${
-                styles.clearfix
-              }`}
+              className={`${styles['chatting-item']} ${styles.other} clearfix`}
             >
               <div className={styles['msg-date']}>2017-12-12</div>
               <div className={styles['msg-form']}>
