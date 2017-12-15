@@ -11,16 +11,16 @@ class Chatting extends Component {
       <div className={styles.chatting}>
         {/* 聊天界面头部 */}
         <div className={styles['chatting-header']}>
-          <div className="chatting-back">
+          <div className={styles['chatting-back']}>
             <i className={chatBackClass} />
           </div>
-          <div className="chatting-title">
+          <div className={styles['chatting-title']}>
             <h2>
-              <i className="icon-group" />群聊
+              <i className={styles['icon-group']} />群聊
             </h2>
           </div>
-          <div className="chatting-menu">
-            <i className="icon-menu" />
+          <div className={styles['chatting-menu']}>
+            <i className={styles['icon-menu']} />
           </div>
         </div>
 
