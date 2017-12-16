@@ -1,9 +1,51 @@
 import React, { Component } from 'react';
+import io from 'socket.io-client';
 import styles from './chatting.css';
 
+const socket = io.connect('https://microzz.com:3000/');
 class Chatting extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      msgs: [],
+      inputContent: '',
+      emojis: ['😂', '🙏', '😄', '😏', '😇', '😅', '😌', '😘', '😍', '🤓', '😜', '😎', '😊', '😳', '🙄', '😱', '😒', '😔', '😷', '👿', '🤗', '😩', '😤', '😣', '😰', '😴', '😬', '😭', '👻', '👍', '✌️', '👉', '👀', '🐶', '🐷', '😹', '⚡️', '🔥', '🌈', '🍏', '⚽️', '❤️', '🇨🇳'],
+      isShowEmoji: false,
+      isRedAI: false,
+    };
+  }
+  showEmoji() {
+    this.setState({ isShowEmoji: true });
+  }
+  renderMsg() {
+
+  }
   componentDidMount() {
-    console.log(222);
+    const username = Math.random().toString(36).substr(2);
+    socket.emit('online', username);
+    socket.on('online', (name) => {
+      if (!name) {
+        return;
+      }
+      let oOnline = document.createElement('div');
+      oOnline.className = 'online';
+      oOnline.innerText = `${name} 上线了`;
+      this.chattingContent.appendChild(oOnline);
+      this.chattingContent.scrollTop = this.chattingContent.scrollHeight;
+    });
+
+    // 接受群聊消息
+    socket.on('receiveGroupMsg', (data) => {
+      const msgs = this.state.msgs;
+      msgs.push(data);
+      console.log(msgs);
+      this.setState({ msgs });
+      setTimeout(() => {
+        this.chattingContent.scrollTop = this.chattingContent.scrollHeight;
+      }, 0);
+    });
+
+    this.chattingContent.scrollTop = this.chattingContent.scrollHeight;
   }
   render() {
     const chatBackClass = '';

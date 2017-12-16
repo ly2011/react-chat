@@ -8,9 +8,15 @@
 :global {
   html,
   body {
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     overflow: hidden;
+  }
+  @media only screen and (min-width: 769px) {
+    html, body {
+      margin: auto;
+      width: 64%;
+    }
   }
   button {
     cursor: pointer;
@@ -40,37 +46,28 @@
   .clearfix {
     *zoom: 1;
   }
+  .online {
+    width: 200px;
+    margin: 3px auto;
+    border-radius: 4px;
+    text-align: center;
+    background-color: #ECEFF1;
+    color: gray;
+    font-size: 50%;
+  }
+
+}
+
+:global {
+  #root, .App, .App > div {
+      width: 100%;
+      height: 100%;
+  }
 }
 
 :global(.App) {
-  text-align: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}

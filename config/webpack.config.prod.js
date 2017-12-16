@@ -191,6 +191,8 @@ module.exports = {
                         ident: 'postcss',
                         plugins: () => [
                           require('postcss-flexbugs-fixes'),
+                          require('postcss-import'),
+                          require('precss'),
                           require('postcss-nested'),
                           autoprefixer({
                             browsers: [
