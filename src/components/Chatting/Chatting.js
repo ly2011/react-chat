@@ -1,27 +1,110 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
+import moment from 'moment';
+import { random } from '../../utils/util';
 import styles from './chatting.css';
+
+// 本地化，中文时间显示
+moment.locale('zh-cn');
 
 const socket = io.connect('https://microzz.com:3000/');
 class Chatting extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: Math.random()
+        .toString(36)
+        .substr(2),
+      avatarUrl: `../../assets/images/${random(21)}.svg`,
       msgs: [],
       inputContent: '',
-      emojis: ['😂', '🙏', '😄', '😏', '😇', '😅', '😌', '😘', '😍', '🤓', '😜', '😎', '😊', '😳', '🙄', '😱', '😒', '😔', '😷', '👿', '🤗', '😩', '😤', '😣', '😰', '😴', '😬', '😭', '👻', '👍', '✌️', '👉', '👀', '🐶', '🐷', '😹', '⚡️', '🔥', '🌈', '🍏', '⚽️', '❤️', '🇨🇳'],
+      emojis: [
+        '😂',
+        '🙏',
+        '😄',
+        '😏',
+        '😇',
+        '😅',
+        '😌',
+        '😘',
+        '😍',
+        '🤓',
+        '😜',
+        '😎',
+        '😊',
+        '😳',
+        '🙄',
+        '😱',
+        '😒',
+        '😔',
+        '😷',
+        '👿',
+        '🤗',
+        '😩',
+        '😤',
+        '😣',
+        '😰',
+        '😴',
+        '😬',
+        '😭',
+        '👻',
+        '👍',
+        '✌️',
+        '👉',
+        '👀',
+        '🐶',
+        '🐷',
+        '😹',
+        '⚡️',
+        '🔥',
+        '🌈',
+        '🍏',
+        '⚽️',
+        '❤️',
+        '🇨🇳',
+      ],
       isShowEmoji: false,
       isRedAI: false,
     };
+    this.showEmoji = this.showEmoji.bind(this);
+    this.sendMsg = this.sendMsg.bind(this);
   }
   showEmoji() {
-    this.setState({ isShowEmoji: true });
+    this.setState({ isShowEmoji: !this.state.isShowEmoji });
   }
-  renderMsg() {
+  insertText(str) {
+    str += ' ';
+    this.textarea.value += str;
+    setTimeout(() => {
+      // this.textarea.scrollTop = this.textarea.scrollHeight;
+    }, 0);
+  }
+  sendMsg() {
+    this.setState({ isShowEmoji: false });
 
+    const msgContent = this.textarea.value ? this.textarea.value.trim() : '';
+    if (msgContent === '') {
+      return false;
+    }
+    const msg = {
+      date: moment().format('YYYY-MM-DD HH:mm:ss'),
+      loc: '广东省深圳市南山区',
+      from: this.state.username,
+      content: msgContent,
+      avatarUrl: this.state.avatarUrl,
+    };
+    socket.emit('sendGroupMsg', msg);
+    msg.self = true;
+    const msgs = this.state.msgs;
+    msgs.push(msg);
+    this.setState({ msgs });
+    this.textarea.value = '';
+    setTimeout(() => {
+      this.chattingContent.scrollTop = this.chattingContent.scrollHeight;
+    }, 0);
   }
   componentDidMount() {
-    const username = Math.random().toString(36).substr(2);
+    const { username } = this.state;
     socket.emit('online', username);
     socket.on('online', (name) => {
       if (!name) {
@@ -38,7 +121,6 @@ class Chatting extends Component {
     socket.on('receiveGroupMsg', (data) => {
       const msgs = this.state.msgs;
       msgs.push(data);
-      console.log(msgs);
       this.setState({ msgs });
       setTimeout(() => {
         this.chattingContent.scrollTop = this.chattingContent.scrollHeight;
@@ -70,53 +152,94 @@ class Chatting extends Component {
         <div
           className={styles['chatting-content']}
           ref={chattingContent => (this.chattingContent = chattingContent)}
+          onClick={() => this.showEmoji()}
         >
-          <div>
-            {/* self */}
-            <div
-              className={`${styles['chatting-item']} ${styles.self} clearfix`}
-            >
-              <div className={styles['msg-date']}>2017-12-12</div>
-              <div className={styles['msg-form']}>
-                <span className={styles.loc}>loc</span>
-                <span className={styles['msg-author']}>from</span>
-                <img src="" alt="" />
-              </div>
-              <div className={styles['msg-content']}>content</div>
-            </div>
-
-            {/* other */}
-            <div
-              className={`${styles['chatting-item']} ${styles.other} clearfix`}
-            >
-              <div className={styles['msg-date']}>2017-12-12</div>
-              <div className={styles['msg-form']}>
-                <img src="" alt="" />
-                <span className={styles.loc}>loc</span>
-                <span className={styles['msg-author']}>from</span>
-              </div>
-              <div className={styles['msg-content']}>content</div>
-            </div>
-          </div>
+          {this.state.msgs ? <ChattingContent msgs={this.state.msgs} /> : null}
         </div>
 
         {/* 输入信息区域 */}
         <div className={styles['chatting-input']}>
-          <div className={styles['emoji-display']}>
-            <ul />
-          </div>
+          {this.state.isShowEmoji ? (
+            <EmojiComp
+              insertText={str => this.insertText(str)}
+              emojis={this.state.emojis}
+            />
+          ) : null}
           <div className={styles.emoji}>
-            <i className={styles['icon-emoji']} />
+            <i
+              onClick={() => this.showEmoji()}
+              className={styles['icon-emoji']}
+            />
           </div>
           <textarea
             ref={textarea => (this.textarea = textarea)}
             placeholder="左上角还有智能机器人哦"
           />
-          <button className={styles['send-btn']}>发送</button>
+
+          <button className={styles['send-btn']} onClick={() => this.sendMsg()}>
+            发送
+          </button>
         </div>
       </div>
     );
   }
 }
+
+const EmojiComp = (props) => {
+  const { emojis, insertText } = props;
+  return (
+    <div className={styles['emoji-display']}>
+      <ul>
+        {emojis.map((item, index) => (
+          <li onClick={() => insertText(item)} key={index}>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+const ChattingContent = (props) => {
+  const { msgs } = props;
+  return (
+    <div>
+      {msgs.map((msg, index) => {
+        if (msg.self) {
+          return <SelfChattingContent msg={msg} key={index} />;
+        }
+        return <OtherChattingContent msg={msg} key={index} />;
+      })}
+    </div>
+  );
+};
+const SelfChattingContent = (props) => {
+  const { msg } = props;
+  return (
+    <div className={`${styles['chatting-item']} ${styles.self} clearfix`}>
+      <div className={styles['msg-date']}>{msg.date}</div>
+      <div className={styles['msg-form']}>
+        <span className={styles.loc}>[{msg.loc}]</span>
+        <span className={styles['msg-author']}>{msg.from}</span>
+        <img src={msg.avatarUrl} alt="" />
+      </div>
+      <div className={styles['msg-content']}>{msg.content}</div>
+    </div>
+  );
+};
+const OtherChattingContent = (props) => {
+  const { msg } = props;
+  return (
+    <div className={`${styles['chatting-item']} ${styles.other} clearfix`}>
+      <div className={styles['msg-date']}>{msg.date}</div>
+      <div className={styles['msg-form']}>
+        <img src={msg.avatarUrl} alt="" />
+        <span className={styles.loc}>[{msg.loc}]</span>
+        <span className={styles['msg-author']}>{msg.from}</span>
+      </div>
+      <div className={styles['msg-content']}>{msg.content}</div>
+    </div>
+  );
+};
 
 export default Chatting;
