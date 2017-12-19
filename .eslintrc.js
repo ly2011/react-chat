@@ -9,10 +9,11 @@ const eslintrc = {
   },
   parser: 'babel-eslint',
   parserOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 7,
     ecmaFeatures: {
       jsx: true,
       experimentalObjectRestSpread: true,
+      experimentalDecorators: true,
     },
   },
   plugins: ['react', 'babel', 'import', 'jsx-a11y'],
