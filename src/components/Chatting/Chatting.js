@@ -72,6 +72,14 @@ class Chatting extends Component {
   showEmoji() {
     this.setState({ isShowEmoji: !this.state.isShowEmoji });
   }
+  hideEmoji(e) {
+    // 阻止合成事件与最外层document上的事件间的冒泡
+    e.nativeEvent.stopImmediatePropagation();
+
+    // 阻止合成事件间的冒泡
+    // e.stopPropagation();
+    this.setState({ isShowEmoji: false });
+  }
   insertText(str) {
     str += ' ';
     this.textarea.value += str;
@@ -152,7 +160,7 @@ class Chatting extends Component {
         <div
           className={styles['chatting-content']}
           ref={chattingContent => (this.chattingContent = chattingContent)}
-          onClick={() => this.showEmoji()}
+          onClick={e => this.hideEmoji(e)}
         >
           {this.state.msgs ? <ChattingContent msgs={this.state.msgs} /> : null}
         </div>
