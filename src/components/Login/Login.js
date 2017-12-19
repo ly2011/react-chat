@@ -17,7 +17,7 @@ class Login extends Component {
     localStorage.setItem('username', username);
     this.props.history.push({
       pathname: 'chatting',
-      search: '?tab=2'
+      search: '?tab=2',
     });
   }
   componentDidMount() {
