@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
+// import createHistory from 'history/createBrowserHistory';
+import createHistory from 'history/createHashHistory';
 
 import asyncComponent from './AsyncComponent';
 // import logo from './logo.svg';
