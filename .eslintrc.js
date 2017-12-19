@@ -27,6 +27,7 @@ const eslintrc = {
     'no-plusplus': 0,
     'one-var': 0,
     'no-mixed-operators': 0,
+    'import/no-dynamic-require': 0,
     'import/prefer-default-export': 0,
     'jsx-a11y/no-noninteractive-element-interactions': 0,
     'react/sort-comp': 0,
