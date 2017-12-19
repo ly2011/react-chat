@@ -1,2 +1,0 @@
-- [x] [https://github.com/microzz/vue-chat](https://github.com/microzz/vue-chat)
-- [x] [https://segmentfault.com/a/1190000009369312](https://segmentfault.com/a/1190000009369312)
