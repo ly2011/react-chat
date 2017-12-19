@@ -1,0 +1,201 @@
+.chatting {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  .chatting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    background-color: #2196f3;
+    color: white;
+    padding-left: 10px;
+    padding-right: 15px;
+
+    .chatting-back {
+      width: 32px;
+      height: 32px;
+      .icon-back {
+        background: url('../../common/icons/icon-ai.svg') no-repeat;
+        background-size: contain;
+      }
+      .icon-back2 {
+        background: url('../../common/icons/icon-ai2.svg') no-repeat;
+        background-size: contain;
+      }
+    }
+
+    .chatting-title {
+      i.icon-group {
+        vertical-align: top;
+        width: 30px;
+        height: 30px;
+        background: url('../../common/icons/icon-group.svg') no-repeat;
+        background-size: contain;
+        margin-right: 3px;
+      }
+    }
+
+    .chatting-menu {
+      width: 30px;
+      height: 30px;
+      i.icon-menu {
+        background: url('../../common/icons/icon-index.svg') no-repeat;
+        background-size: contain;
+      }
+    }
+  }
+
+  .chatting-content {
+    flex: 1;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    overflow: auto;
+    .chatting-item {
+      padding: 10px;
+      width: 100%;
+      .msg-date {
+        text-align: center;
+        color: gray;
+        font-size: 80%;
+      }
+      .msg-form {
+        display: flex;
+        align-items: center;
+        span.loc {
+          color: gray;
+          font-size: 60%;
+          margin-right: 5px;
+        }
+        .msg-author {
+          font-size: 1.2rem;
+        }
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 15px;
+        }
+      }
+      .msg-content {
+        margin-top: 5px;
+        background-color: white;
+        width: 200px;
+        padding: 6px 10px;
+        border-radius: 10px;
+      }
+    }
+
+    .chatting-item + .chatting-item {
+      margin-top: 10px;
+    }
+    .self {
+      .msg-from {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        img {
+          margin-left: 10px;
+        }
+      }
+
+      .msg-content {
+        float: right;
+        word-wrap: break-word;
+        word-break: break-all;
+        margin-right: 10px;
+      }
+    }
+
+    .other {
+      .msg-from {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        span.loc {
+          color: gray;
+          font-size: 60%;
+          margin-right: 5px;
+        }
+        img {
+          margin-right: 10px;
+        }
+      }
+
+      .msg-content {
+        float: left;
+        margin-left: 10px;
+        word-wrap: break-word;
+        word-break: break-all;
+      }
+    }
+
+    .online {
+      width: 200px;
+      // max-width: 100%;
+      margin: 3px auto;
+      border-radius: 4px;
+      text-align: center;
+      background-color: #fffde7;
+    }
+  }
+
+  .chatting-input {
+    position: relative;
+    display: flex;
+    height: 40px;
+    width: 100%;
+    .emoji-display {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 210px;
+      background-color: white;
+      top: -210px;
+      left: 0;
+      overflow-y: auto;
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+
+        li {
+          padding: 2px 3px;
+          font-size: 2.2rem;
+        }
+      }
+    }
+    .emoji {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 45px;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.1);
+      .icon-emoji {
+        width: 40px;
+        height: 100%;
+        background: url('../../common/icons/icon-emoji.svg') no-repeat;
+        background-size: contain;
+      }
+    }
+
+    textarea {
+      flex: 1;
+      resize: none;
+      padding-left: 3px;
+      padding-top: 7px;
+      padding-right: 3px;
+      height: 100%;
+      font-size: 1.4rem;
+    }
+    button {
+      width: 60px;
+      height: 100%;
+      background-color: #2196f3;
+      color: white;
+      font-size: 16px;
+    }
+  }
+}
