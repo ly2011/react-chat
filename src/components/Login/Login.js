@@ -11,6 +11,7 @@ class Login extends Component {
   @keydown('enter')
   login() {
     const username = this.loginInput.value ? this.loginInput.value.trim() : '';
+    console.log(`username: ${username}`);
     if (username === '') {
       return false;
     }
@@ -21,7 +22,6 @@ class Login extends Component {
     });
   }
   componentDidMount() {
-    console.log(this.props);
   }
   render() {
     return (
@@ -32,6 +32,7 @@ class Login extends Component {
           type="text"
           ref={loginInput => (this.loginInput = loginInput)}
           className={styles['input-text']}
+          onKeyDown={this.login}
         />
       </div>
     );
