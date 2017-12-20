@@ -8,7 +8,12 @@ import styles from './chatting.css';
 // 本地化，中文时间显示
 moment.locale('zh-cn');
 
-const socket = io.connect('https://microzz.com:3000/');
+const socketURL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://microzz.com:3000/'
+    : 'http://localhost:3001/';
+
+const socket = io.connect(socketURL);
 class Chatting extends Component {
   constructor(props) {
     super(props);
