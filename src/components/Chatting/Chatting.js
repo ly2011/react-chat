@@ -13,6 +13,13 @@ const socketURL =
     ? 'https://microzz.com:3000/'
     : 'http://localhost:3001/';
 
+const avatarUrl =
+  process.env.NODE_ENV === 'production'
+    ? `https://raw.githubusercontent.com/ly2011/react-chat/gh-pages/static/images/icon-avatar${random(
+      21
+    )}.svg`
+    : `../../static/images/icon-avatar${random(21)}.svg`;
+
 const socket = io.connect(socketURL);
 class Chatting extends Component {
   constructor(props) {
@@ -21,7 +28,7 @@ class Chatting extends Component {
       username: Math.random()
         .toString(36)
         .substr(2),
-      avatarUrl: `../../assets/images/${random(21)}.svg`,
+      avatarUrl,
       msgs: [],
       inputContent: '',
       emojis: [
