@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import keydown from 'react-keydown';
+import { Helmet } from 'react-helmet';
 import styles from './login.css';
 
 class Login extends Component {
@@ -21,11 +22,14 @@ class Login extends Component {
       search: '?tab=2',
     });
   }
-  componentDidMount() {
-  }
+  componentDidMount() {}
   render() {
     return (
       <div className={styles.login}>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>登录</title>
+        </Helmet>
         <i className={styles['icon-chat']} />
         <h2 className={styles['input-label']}>请输入您的名字</h2>
         <input

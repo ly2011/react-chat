@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import moment from 'moment';
+import { Helmet } from 'react-helmet';
 import { random } from '../../utils/util';
 import styles from './chatting.css';
 
@@ -141,6 +142,10 @@ class Chatting extends Component {
     const chatBackClass = '';
     return (
       <div className={styles.chatting}>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>群聊</title>
+        </Helmet>
         {/* 聊天界面头部 */}
         <div className={styles['chatting-header']}>
           <div className={styles['chatting-back']}>
@@ -152,7 +157,10 @@ class Chatting extends Component {
             </h2>
           </div>
           <div className={styles['chatting-menu']}>
-            <i className={styles['icon-menu']} />
+            <i
+              className={styles['icon-menu']}
+              onClick={() => this.props.history.push('/')}
+            />
           </div>
         </div>
 
